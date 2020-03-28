@@ -1,11 +1,13 @@
-const users = require('express').users();
+const express = require('express');
 
-//models
-const User = require('./models/user');
-const appHelper = require('./helpers/app')
+const usersRouter = express.Router();
+
+// Models
+const User = require('../../../models/user');
+const auth = require('../../../helpers/auth')
 
 // Register
-users.post('/register', (req, res, next) => {
+usersRouter.post('/register', (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -17,12 +19,12 @@ users.post('/register', (req, res, next) => {
     if(err){
       res.json({success: false, msg:'Failed to register user'});
     } else {
-      appHelper.authorise(user, req, res);
+      auth.authorise(user, req, res);
     }
   });
 });
 
-users.post('/login', (req, res, next) => {
+usersRouter.post('/login', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -35,7 +37,7 @@ users.post('/login', (req, res, next) => {
     User.comparePassword(password, user.password, (err, isMatch) => {
       if(err) throw err;
       if(isMatch){
-        appHelper.authorise(user, req, res);
+        auth.authorise(user, req, res);
       } else {
         return res.json({success: false, msg: 'Wrong password'});
       }
@@ -44,8 +46,8 @@ users.post('/login', (req, res, next) => {
 });
 
 // Profile
-users.get('/achievements', appHelper.authenticate, (req, res, next) => {
+usersRouter.get('/achievements', auth.authenticate, (req, res, next) => {
   res.json({user: User.getAchievements(req.decodedToken._id)});
 });
 
-module.exports = users;
+module.exports = usersRouter;

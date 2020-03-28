@@ -1,11 +1,11 @@
-import express, { Application, Request, Response, NextFunction, ErrorRequestHandler } from 'express';
-import mongoose, { Connection } from 'mongoose';
-import morgan from 'morgan';
-import createError, { HttpError } from 'http-errors';
-import router from './routes';
+const express = require('express');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const createError = require('http-errors');
+const router = require('./routes');
 
-const PORT: Number = 3000;
-const app: Application = express();
+const PORT = 3000;
+const app = express();
 
 // Middleware
 app.use(morgan('combined'));
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 })
 
 // Error handler
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   console.log('error handler')
   res.status(err.status || 500).json({ error: err.message });
 });
@@ -35,8 +35,8 @@ app.on('ready', () => {
 }); 
 
 // Connect to database and start server
-mongoose.connect(process.env.DATABASE_URL!, { useNewUrlParser: true, useUnifiedTopology: true })
-const db: Connection = mongoose.connection
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => {
   console.log('connected to database');
