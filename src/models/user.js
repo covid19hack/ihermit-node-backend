@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose').set('debug', true);
 const ObjectId = require('mongodb').ObjectID;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
@@ -56,9 +56,9 @@ UserSchema.statics = {
 }
 
 UserSchema.methods = {
-  updateNickName: function (nickName) {
+  updateNickName: function (nickName, callback) {
     this.nickName = nickName
-    this.save();
+    this.save(callback);
   }
 }
 

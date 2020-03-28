@@ -10,7 +10,10 @@ router.get('/ping', (req, res) => {
 })
 
 router.use('/api/v1/users', usersRouter);
+
+// users router
 usersRouter.post('/authenticate', usersController.authenticate)
-usersRouter.get('/achievements', authHelper.authenticate, usersController.achievements)
+usersRouter.post('/updateNickName', authHelper.authenticate, usersController.updateNickName)
+usersRouter.get('/profile', authHelper.authenticate, usersController.getProfile)
 
 module.exports = router

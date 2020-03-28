@@ -5,7 +5,6 @@ const User = require('../../../../models/user');
 const auth = require('../../../../helpers/auth')
 
 // Register or Login
-
 const authenticate = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -34,8 +33,7 @@ const authenticate = (req, res, next) => {
       User.comparePassword(password, user.password, (err, isMatch) => {
         if (err) {
           next(err);
-        }
-        if (isMatch){
+        } else if (isMatch) {
           auth.authorise(user, req, res);
         } else {
           next(createError(401, "Wrong password"));
@@ -45,9 +43,25 @@ const authenticate = (req, res, next) => {
   });
 };
 
+const updateNickName = (req, res, next) => {
+  const nickName = req.body.nickName;
+  User.getUserById(req.decodedToken.id, (err, foundUser) => {
+    if (err) {
+      return next(err)
+    } 
+    foundUser.updateNickName(nickName, (err, saved) => {
+      if (err) {
+        next(err)
+      } else {
+        res.json({ nickName: saved.nickName })
+      }
+    });
+  });
+}
+
 // Profile
-const achievements = (req, res, next) => {
-  res.json({user: User.getAchievements(req.decodedToken._id)});
+const getProfile = (req, res, next) => {
+  res.json({ user: User.getProfile(req.decodedToken.id) });
 };
 
-module.exports = { authenticate, achievements };
+module.exports = { authenticate, getProfile, updateNickName };
