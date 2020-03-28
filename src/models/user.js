@@ -7,6 +7,7 @@ const userSchema = Schema({
   email: {
     type: String,
     index: true,
+    trim: true,
     unique: true,
     required: true
   },
@@ -14,7 +15,10 @@ const userSchema = Schema({
     type: String,
     required: true
   },
-  achievements:[String]
+  nickName: {
+    type: String
+  },
+  achievements: [String]
 });
 
 const User = module.exports = mongoose.model('User', userSchema);
@@ -23,8 +27,8 @@ module.exports.getUserById = function(id, callback){
   User.findById(id, callback);
 }
 
-module.exports.getUserByUsername = function(username, callback) {
-  const query = {username: username}
+module.exports.getUserByEmail = function(email, callback) {
+  const query = {email: email}
   User.findOne(query, callback);
 }
 
