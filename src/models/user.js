@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectID;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-const userSchema = Schema({
+const UserSchema = Schema({
   email: {
     type: String,
     index: true,
@@ -16,39 +16,50 @@ const userSchema = Schema({
     required: true
   },
   nickName: {
-    type: String
+    type: String,
+    trim: true,
+    default: '' 
   },
   achievements: [String]
 });
 
-const User = module.exports = mongoose.model('User', userSchema);
+UserSchema.statics = {
+  getUserById:  function (id, callback) {
+    this.findById(id, callback);
+  },
 
-module.exports.getUserById = function(id, callback){
-  User.findById(id, callback);
-}
+  getUserByEmail: function (email, callback) {
+    const query = {email: email}
+    this.findOne(query, callback);
+  },
 
-module.exports.getUserByEmail = function(email, callback) {
-  const query = {email: email}
-  User.findOne(query, callback);
-}
-
-module.exports.addUser = function(newUser, callback) {
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if(err) throw err;
-      newUser.password = hash;
-      newUser.save(callback);
+  addUser: function (newUser, callback) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if(err) throw err;
+        newUser.password = hash;
+        newUser.save(callback);
+      });
     });
-  });
+  },
+
+  comparePassword: function (candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+      if(err) throw err;
+      callback(null, isMatch);
+    });
+  },
+
+  getAchievements: function (userId) {
+    return this.findById(userId).achievements;
+  }
 }
 
-module.exports.comparePassword = (candidatePassword, hash, callback) => {
-  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-    if(err) throw err;
-    callback(null, isMatch);
-  });
+UserSchema.methods = {
+  updateNickName: function (nickName) {
+    this.nickName = nickName
+    this.save();
+  }
 }
 
-module.exports.getAchievements = (userId) => {
-  return User.findById(userId).achievements;
-}
+module.exports = mongoose.model('User', UserSchema)

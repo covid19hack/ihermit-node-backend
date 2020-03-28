@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.log('handle error')
+  console.log({err: err.message, stack: err.stack})
   res.status(err.status || 500).json({ 
     success: false,
     message: err.message
