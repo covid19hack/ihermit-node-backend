@@ -14,6 +14,7 @@ const authenticate = (req, res, next) => {
   });
 };
 
+// send a token
 const authorise = (user, req, res) => {
   const userData = {
     id: user._id,
@@ -30,6 +31,6 @@ const authorise = (user, req, res) => {
 }
 
 module.exports = {
-  authenticate: authenticate,
-  authorise: authorise
+  authenticate,
+  authorise
 }
