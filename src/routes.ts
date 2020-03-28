@@ -1,21 +1,13 @@
 import express, { Router, Request, Response, NextFunction } from 'express';
+const users = require('./routes/v1/users');
 
 const router: Router = express.Router();
 
-router.get('/hello', (req, res) => {
-  res.json({"hello": "hello"});
+router.get('/ping', (req, res) => {
+  res.json({"message": "pong"});
 })
 
-router.get('/hi', (req: Request, res: Response, next: NextFunction) => {
-  throw new Error('error');
-});
+router.use('v1/users', users);
 
-router.get('/ho', (req, res, next) => {
-  throw new Error('whatsapp');
-})
-
-router.get('/herro', (req, res) => {
-  res.send('homepage');
-})
 
 export default router;
