@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose').set('debug', true);
 const ObjectId = require('mongodb').ObjectID;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-const userSchema = Schema({
+const UserSchema = Schema({
   email: {
     type: String,
     index: true,
+    trim: true,
     unique: true,
     required: true
   },
@@ -14,37 +15,51 @@ const userSchema = Schema({
     type: String,
     required: true
   },
-  achievements:[String]
+  nickName: {
+    type: String,
+    trim: true,
+    default: '' 
+  },
+  achievements: [String]
 });
 
-const User = module.exports = mongoose.model('User', userSchema);
+UserSchema.statics = {
+  getUserById:  function (id, callback) {
+    this.findById(id, callback);
+  },
 
-module.exports.getUserById = function(id, callback){
-  User.findById(id, callback);
-}
+  getUserByEmail: function (email, callback) {
+    const query = {email: email}
+    this.findOne(query, callback);
+  },
 
-module.exports.getUserByUsername = function(username, callback) {
-  const query = {username: username}
-  User.findOne(query, callback);
-}
-
-module.exports.addUser = function(newUser, callback) {
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if(err) throw err;
-      newUser.password = hash;
-      newUser.save(callback);
+  addUser: function (newUser, callback) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if(err) throw err;
+        newUser.password = hash;
+        newUser.save(callback);
+      });
     });
-  });
+  },
+
+  comparePassword: function (candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+      if(err) throw err;
+      callback(null, isMatch);
+    });
+  },
+
+  getAchievements: function (userId) {
+    return this.findById(userId).achievements;
+  }
 }
 
-module.exports.comparePassword = (candidatePassword, hash, callback) => {
-  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-    if(err) throw err;
-    callback(null, isMatch);
-  });
+UserSchema.methods = {
+  updateNickName: function (nickName, callback) {
+    this.nickName = nickName
+    this.save(callback);
+  }
 }
 
-module.exports.getAchievements = (userId) => {
-  return User.findById(userId).achievements;
-}
+module.exports = mongoose.model('User', UserSchema)

@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const createError = require('http-errors');
-const router = require('./routes/routes');
+const router = require('./routes');
 
 const PORT = 3000;
 const app = express();
@@ -18,13 +18,16 @@ app.use('/', router)
 // 404
 app.use((req, res, next) => {
   console.log('no route found')
-  next(createError(404));
+  next(createError(404, 'route not found'));
 })
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.log('error handler')
-  res.status(err.status || 500).json({ error: err.message });
+  console.log({err: err.message, stack: err.stack})
+  res.status(err.status || 500).json({ 
+    success: false,
+    message: err.message
+  });
 });
 
 // App waiting to listen

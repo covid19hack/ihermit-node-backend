@@ -1,32 +1,38 @@
 const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
+
 const jwtSecret = process.env.JWT_SECRET
 
 //authenticate token
 const authenticate = (req, res, next) => {
-  let token = req.headers['auth-token'];
-  if(!token){
-    return res.status(403).json({ success: false, message: "No token provided" });
+  console.log(req.headers)
+  const token = req.headers['x-authtoken'];
+  if(!token) {
+    next(createError(403, "No token provided"));
+  } else {
+    jwt.verify(token, jwtSecret, (err, decoded) => {
+      if (err) {
+        next(createError(403, "Invalid token"))
+      } else {
+        req.decodedToken = decoded;
+        next();
+      }
+    });
   }
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-      if(err) return res.status(500).json({ success: false, message: "Failed to authenticate the token" });
-      req.decodedToken = decodedToken;
-      next();
-  });
 };
 
 // send a token
-const authorise = (user, req, res) => {
+const authorise = (user, req, res, options) => {
   const userData = {
     id: user._id,
-    name: user.name,
-    username: user.username,
-    email: user.email
+    nickName: user.nickName,
   }
   const token = jwt.sign(userData, jwtSecret);
   res.json({
     success: true,
     auth_token: token,
-    user: userData
+    user: userData,
+    ...options,
   });
 }
 
