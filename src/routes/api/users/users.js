@@ -3,8 +3,8 @@ const express = require('express');
 const usersRouter = express.Router();
 
 // Models
-const User = require('../../../models/user');
-const auth = require('../../../helpers/auth')
+const User = require('../../../../models/user');
+const auth = require('../../../../helpers/auth')
 
 // Register
 usersRouter.post('/register', (req, res, next) => {
