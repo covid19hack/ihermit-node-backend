@@ -1,0 +1,36 @@
+{
+  "name": "covid19hack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config dist/app.js",
+    "dev": "nodemon -r dotenv/config src/app.ts",
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jehon11/covid19hack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jehon11/covid19hack/issues"
+  },
+  "homepage": "https://github.com/jehon11/covid19hack#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.3",
+    "@types/http-errors": "^1.6.3",
+    "@types/morgan": "^1.9.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.8.1",
+    "typescript": "^3.8.3"
+  }
+}
