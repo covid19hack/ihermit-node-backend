@@ -1,4 +1,5 @@
 import express, { Application, Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import mongoose, { Connection } from 'mongoose';
 import morgan from 'morgan';
 import createError, { HttpError } from 'http-errors';
 import router from './routes';
@@ -34,9 +35,10 @@ app.on('ready', () => {
 }); 
 
 // Connect to database and start server
-const connectDbAndStartServer = () => {
-  console.log("connected to db")
-  app.emit('ready')
-}
-
-connectDbAndStartServer();
+mongoose.connect(process.env.DATABASE_URL!, { useNewUrlParser: true, useUnifiedTopology: true })
+const db: Connection = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => {
+  console.log('connected to database');
+  app.emit('ready');
+});
