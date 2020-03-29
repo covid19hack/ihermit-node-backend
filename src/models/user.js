@@ -104,7 +104,7 @@ UserSchema.methods = {
       })
       checkIn = await checkIn.save()
       this.checkIns.push(checkIn);
-      if (!this.streakStartDate ) {
+      if (!this.streakStartDate || isHome === false) {
         this.streakStartDate = checkIn.createdAt
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
