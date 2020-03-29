@@ -56,7 +56,7 @@ const createCheckIn = async (req, res, next) => {
     user = await User.getUserById(req.decodedToken.id)
     await user.addCheckIn(req.body.isHome)
     userProfile = await User.getProfile(user.id)
-    res.json({ userProfile })
+    res.json({ ...userProfile })
   } catch (err) {
     next(err)
   }
@@ -65,7 +65,7 @@ const createCheckIn = async (req, res, next) => {
 const getProfile = async (req, res, next) => {
   try {
     const userProfile = await User.getProfile(req.decodedToken.id)
-    res.json({ userProfile });
+    res.json({ ...userProfile });
   } catch (err) {
     next(err)
   }
@@ -75,7 +75,7 @@ const updateAchievement = async (req, res, next) => {
   try {
     changedAchievement = req.body.achievement
     user = await User.updateAchievement(req.decodedToken.id, changedAchievement)
-    res.json({ ...user,  success: 'true' });
+    res.json({ ...user });
   } catch (err) {
     next(err)
   }
