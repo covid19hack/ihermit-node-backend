@@ -157,6 +157,7 @@ UserSchema.methods = {
   addCheckIn: async function (isHome) {
     try {
       checkIn = new CheckIn({
+        userId: this.id,
         isHome: isHome
       })
       checkIn = await checkIn.save()
@@ -170,7 +171,42 @@ UserSchema.methods = {
     } catch (err) {
       throw err
     }
-  }
+  },
+
+  recalculateStreak: async function () {
+    try {
+      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
+      const checkIns = response.checkIns
+      const len = checkIns.length
+      if (len < 1) {
+        return await this.constructor.getProfile(this.id)
+      }
+      if (!checkIns[len - 1].isHome) {
+        return await this.constructor.getProfile(this.id)
+      }
+      
+      const calcEarliestValidCheckIn = (ckns) => {
+        let earliestValidCheckIn = ckns[len - 1]
+        for (let i = len - 1; i >= 0; i--) {
+          if (!ckns[i].isHome) {
+            return earliestValidCheckIn
+          }
+          earliestValidCheckIn = ckns[i]
+        }
+        return earliestValidCheckIn;
+      }
+
+      const earliestCheckIn = calcEarliestValidCheckIn(checkIns);
+      const lastCheckIn = checkIns[len - 1];
+      const diffDays = Math.ceil((lastCheckIn.createdAt - earliestCheckIn.createdAt) / (1000 * 60 * 60 * 24))
+      this.streakLength = diffDays;
+      this.streakStartDate = earliestCheckIn.createdAt;
+      await this.save()
+      return await this.constructor.getProfile(this.id);
+    } catch (err) {
+      throw err
+    }
+  },
 }
 
 module.exports = mongoose.model('User', UserSchema)
