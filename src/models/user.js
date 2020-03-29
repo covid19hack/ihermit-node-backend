@@ -138,7 +138,7 @@ UserSchema.statics = {
       }
       else {
         const newAchievement = {
-          id: expandedAchievement.id,
+          _id: expandedAchievement.id,
           progress: expandedAchievement.progress,
           completed: completed
         }
@@ -187,7 +187,7 @@ UserSchema.methods = {
       const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
-      
+
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]
         for (let i = len - 1; i >= 0; i--) {
