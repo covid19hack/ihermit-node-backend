@@ -31,7 +31,7 @@ const authorise = (user, req, res, options) => {
   res.json({
     success: true,
     authToken: token,
-    user: userData,
+    userId: user._id,
     ...options,
   });
 }
