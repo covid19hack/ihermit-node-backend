@@ -178,12 +178,6 @@ UserSchema.methods = {
       const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
-      if (len < 1) {
-        return await this.constructor.getProfile(this.id)
-      }
-      if (!checkIns[len - 1].isHome) {
-        return await this.constructor.getProfile(this.id)
-      }
       
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]
