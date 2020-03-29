@@ -99,12 +99,11 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      const userProfile = await this.findById(userId).select('-password -checkIns');
+      const userProfile = await this.findById(userId).select('-password -checkIns').lean();
       const breaches = await this.getBreaches(userId);
-      return {
-        userProfile,
-        ...breaches
-      }
+      userProfile.breaches = breaches
+      console.log(userProfile, breaches);
+      return userProfile
     } catch (err) {
       throw err
     }
@@ -112,7 +111,7 @@ UserSchema.statics = {
 
   getBreaches: async function (userId) {
     try {
-      const response = await this.findById(userId).select('checkIns').populate('checkIns')
+      const response = await this.findById(userId).select('checkIns').populate('checkIns').lean();
       const checkIns = response.checkIns
       const breaches = []
       for (let i = 0; i < checkIns.length; i++) {
@@ -120,7 +119,7 @@ UserSchema.statics = {
           breaches.push(checkIns[i])
         }
       }
-      return { "breaches": breaches }
+      return breaches
     } catch (err) {
       throw err
     }
