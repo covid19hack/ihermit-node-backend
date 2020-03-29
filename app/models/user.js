@@ -2,8 +2,9 @@ const mongoose = require('mongoose').set('debug', true);
 const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
-//data import
+//data and helpers
 defaultAchievements = require('../data/achievements');
+quarantineMilestones = require('../helpers/quarantine_milestones');
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -154,6 +155,7 @@ UserSchema.methods = {
         this.streakStartDate = checkIn.createdAt
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
+      this.points += quarantineMilestones.pointChange(this.streakLength, diffDays);
       this.streakLength = diffDays;
       await this.save()
     } catch (err) {
@@ -163,7 +165,7 @@ UserSchema.methods = {
 
   recalculateStreak: async function () {
     try {
-      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
+      const response = await this.constructor.findById(this.id).select('checkIns points').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
 
@@ -181,6 +183,7 @@ UserSchema.methods = {
       const earliestCheckIn = calcEarliestValidCheckIn(checkIns);
       const lastCheckIn = checkIns[len - 1];
       const diffDays = Math.ceil((lastCheckIn.createdAt - earliestCheckIn.createdAt) / (1000 * 60 * 60 * 24))
+      this.points += quarantineMilestones.pointChange(this.streakLength, diffDays);
       this.streakLength = diffDays;
       this.streakStartDate = earliestCheckIn.createdAt;
       await this.save()
