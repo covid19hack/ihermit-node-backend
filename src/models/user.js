@@ -24,41 +24,60 @@ const UserSchema = Schema({
 });
 
 UserSchema.statics = {
-  getUserById:  function (id, callback) {
-    this.findById(id, callback);
+  getUserById:  async function (id) {
+    try {
+      return await this.findById(id);
+    } catch (err) {
+      throw err
+    }
   },
 
-  getUserByEmail: function (email, callback) {
-    const query = {email: email}
-    this.findOne(query, callback);
+  getUserByEmail: async function (email) {
+    try {
+      const query = { email: email }
+      return await this.findOne(query);
+    } catch (err) {
+      throw err
+    }
   },
 
-  addUser: function (newUser, callback) {
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if(err) throw err;
-        newUser.password = hash;
-        newUser.save(callback);
-      });
-    });
+  addUser: async function (newUser) {
+    try {
+      const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash(newUser.password, salt)
+      newUser.password = hash
+      return await newUser.save()
+    } catch (err) {
+      throw err
+    }
   },
 
-  comparePassword: function (candidatePassword, hash, callback) {
-    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-      if(err) throw err;
-      callback(null, isMatch);
-    });
+  comparePassword: async function (candidatePassword, hashedPassword) {
+    try {
+      return await bcrypt.compare(candidatePassword, hashedPassword)
+    } catch (err) {
+      throw err
+    }
   },
 
-  getAchievements: function (userId) {
-    return this.findById(userId).achievements;
+  getAchievements: async function (userId) {
+    try {
+      const user = await this.findById(userId)
+      return await user.achievements
+    } catch (err) {
+      throw err
+    }
   }
 }
 
 UserSchema.methods = {
-  updateNickName: function (nickName, callback) {
-    this.nickName = nickName
-    this.save(callback);
+  updateNickName: async function (nickName) {
+    try {
+      this.nickName = nickName
+      return await this.save();
+    } catch (err) {
+      throw err
+    }
   }
 }
 
