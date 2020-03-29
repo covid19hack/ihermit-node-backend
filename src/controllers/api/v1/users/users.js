@@ -63,19 +63,23 @@ const createCheckIn = async (req, res, next) => {
 }
 // Profile
 const getProfile = async (req, res, next) => {
-  const user = await User.getProfile(req.decodedToken.id)
-  res.json({ user: user });
-};
-
-const upsertAchievement = async (req, res, next) => {
-  try{
-    let expandedAchievement = await Achievement.findById(req.achievement.id);
-    expandedAchievement.progress = req.achievement.progress;
-    response = await User.upsertAchievement(req.decodedToken.id)
-    res.json({ ... response,  success: 'true' });
-  } catch(err){
+  try {
+    const user = await User.getProfile(req.decodedToken.id)
+    res.json({ user: user });
+  } catch (err) {
     next(err)
   }
 };
 
-module.exports = { authenticate, getProfile, updateNickName, upsertAchievement };
+const upsertAchievement = async (req, res, next) => {
+  try {
+    let expandedAchievement = await Achievement.findById(req.achievement.id);
+    expandedAchievement.progress = req.achievement.progress;
+    response = await User.upsertAchievement(req.decodedToken.id)
+    res.json({ ... response,  success: 'true' });
+  } catch (err) {
+    next(err)
+  }
+};
+
+module.exports = { authenticate, getProfile, updateNickName, upsertAchievement, createCheckIn };
