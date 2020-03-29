@@ -74,8 +74,8 @@ const getProfile = async (req, res, next) => {
 const updateAchievement = async (req, res, next) => {
   try {
     changedAchievement = req.body.achievement
-    savedUser = await User.updateAchievement(req.decodedToken.id, changedAchievement)
-    res.json({ ...savedUser,  success: 'true' });
+    user = await User.updateAchievement(req.decodedToken.id, changedAchievement)
+    res.json({ ...user,  success: 'true' });
   } catch (err) {
     next(err)
   }

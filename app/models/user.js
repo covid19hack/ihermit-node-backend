@@ -122,7 +122,7 @@ UserSchema.statics = {
           }
         },
         { new: true }
-      )
+      ).select('-password -checkIns')
       if(changedAchievement.completed) user.points += changedAchievement.points
       savedUser = await user.save();
       return { savedUser }
