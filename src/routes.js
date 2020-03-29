@@ -14,6 +14,7 @@ router.use('/api/v1/users', usersRouter);
 // users router
 usersRouter.post('/authenticate', usersController.authenticate)
 usersRouter.patch('/updateNickName', authHelper.authenticate, usersController.updateNickName)
+usersRouter.post('/createCheckIn', authHelper.authenticate, usersController.createCheckIn)
 usersRouter.get('/profile', authHelper.authenticate, usersController.getProfile)
 
 module.exports = router

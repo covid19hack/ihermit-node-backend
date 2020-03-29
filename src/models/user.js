@@ -1,9 +1,8 @@
 const mongoose = require('mongoose').set('debug', true);
-const ObjectId = require('mongodb').ObjectID;
-const Schema = mongoose.Schema;
+const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
-const UserSchema = Schema({
+const UserSchema = mongoose.Schema({
   email: {
     type: String,
     index: true,
@@ -20,11 +19,14 @@ const UserSchema = Schema({
     trim: true,
     default: '' 
   },
-  achievements: [String]
+  checkIns: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CheckIn"
+  }]
 });
 
 UserSchema.statics = {
-  getUserById:  async function (id) {
+  getUserById: async function (id) {
     try {
       return await this.findById(id);
     } catch (err) {
@@ -67,7 +69,17 @@ UserSchema.statics = {
     } catch (err) {
       throw err
     }
-  }
+  },
+
+  
+
+  // getProfile: async function (userId) {
+  //   try {
+      
+  //   } catch (err) {
+
+  //   }
+  // }
 }
 
 UserSchema.methods = {
@@ -75,6 +87,19 @@ UserSchema.methods = {
     try {
       this.nickName = nickName
       return await this.save();
+    } catch (err) {
+      throw err
+    }
+  },
+
+  addCheckIn: async function (isHome) {
+    try {
+      checkIn = new CheckIn({
+        isHome: isHome
+      })
+      checkIn = await checkIn.save()
+      this.checkIns.push(checkIn);
+      return this.save();
     } catch (err) {
       throw err
     }

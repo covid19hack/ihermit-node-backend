@@ -36,6 +36,9 @@ const authenticate = async (req, res, next) => {
 const updateNickName = async (req, res, next) => {
   try {
     const nickName = req.body.nickName;
+    if (nickName === undefined) {
+      throw createError(400, "nickName not provided")
+    }
     user = await User.getUserById(req.decodedToken.id)
     user = await user.updateNickName(nickName)
     res.json({ nickName: user.nickName })
@@ -44,9 +47,22 @@ const updateNickName = async (req, res, next) => {
   }
 }
 
+const createCheckIn = async (req, res, next) => {
+  try {
+    const isHome = req.body.isHome
+    if (isHome === undefined) {
+      throw createError(400, "isHome not provided")
+    }
+    user = await User.getUserById(req.decodedToken.id)
+    await user.addCheckIn(req.body.isHome)
+    res.json("message: ok")
+  } catch (err) {
+    next(err)
+  }
+}
 // Profile
 const getProfile = (req, res, next) => {
   res.json({ user: User.getProfile(req.decodedToken.id) });
 };
 
-module.exports = { authenticate, getProfile, updateNickName };
+module.exports = { authenticate, getProfile, updateNickName, createCheckIn };
