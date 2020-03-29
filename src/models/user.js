@@ -99,7 +99,7 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      return await this.findById(userId).select('-password -checkIns').populate('achievements.achievementid')
+      return await this.findById(userId).select('-password -checkIns')      //.populate('achievements._id')
     } catch (err) {
       throw err
     }
