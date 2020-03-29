@@ -99,7 +99,28 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      return await this.findById(userId).select('-password -checkIns')      //.populate('achievements._id')
+      const userProfile = await this.findById(userId).select('-password -checkIns');
+      const breaches = await this.getBreaches(userId);
+      return {
+        userProfile,
+        ...breaches
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+
+  getBreaches: async function (userId) {
+    try {
+      const response = await this.findById(userId).select('checkIns').populate('checkIns')
+      const checkIns = response.checkIns
+      const breaches = []
+      for (let i = 0; i < checkIns.length; i++) {
+        if (!checkIns[i].isHome) {
+          breaches.push(checkIns[i])
+        }
+      }
+      return { "breaches": breaches }
     } catch (err) {
       throw err
     }
@@ -145,6 +166,7 @@ UserSchema.methods = {
   addCheckIn: async function (isHome) {
     try {
       checkIn = new CheckIn({
+        userId: this.id,
         isHome: isHome
       })
       checkIn = await checkIn.save()
@@ -154,11 +176,40 @@ UserSchema.methods = {
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
       this.streakLength = diffDays;
-      return await this.save()
+      await this.save()
     } catch (err) {
       throw err
     }
-  }
+  },
+
+  recalculateStreak: async function () {
+    try {
+      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
+      const checkIns = response.checkIns
+      const len = checkIns.length
+      
+      const calcEarliestValidCheckIn = (ckns) => {
+        let earliestValidCheckIn = ckns[len - 1]
+        for (let i = len - 1; i >= 0; i--) {
+          if (!ckns[i].isHome) {
+            return earliestValidCheckIn
+          }
+          earliestValidCheckIn = ckns[i]
+        }
+        return earliestValidCheckIn;
+      }
+
+      const earliestCheckIn = calcEarliestValidCheckIn(checkIns);
+      const lastCheckIn = checkIns[len - 1];
+      const diffDays = Math.ceil((lastCheckIn.createdAt - earliestCheckIn.createdAt) / (1000 * 60 * 60 * 24))
+      this.streakLength = diffDays;
+      this.streakStartDate = earliestCheckIn.createdAt;
+      await this.save()
+      return await this.constructor.getProfile(this.id);
+    } catch (err) {
+      throw err
+    }
+  },
 }
 
 module.exports = mongoose.model('User', UserSchema)

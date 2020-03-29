@@ -1,5 +1,5 @@
 // Models and helpers
-const Achievement = require('../../../../models/achievement');
+const Achievement = require('../../../models/achievement');
 
 const getAllAchievements = async (req, res, next) => {
   try{
