@@ -13,7 +13,7 @@ router.use('/api/v1/users', usersRouter);
 
 // users router
 usersRouter.post('/authenticate', usersController.authenticate)
-usersRouter.post('/updateNickName', authHelper.authenticate, usersController.updateNickName)
+usersRouter.patch('/updateNickName', authHelper.authenticate, usersController.updateNickName)
 usersRouter.get('/profile', authHelper.authenticate, usersController.getProfile)
 
 module.exports = router

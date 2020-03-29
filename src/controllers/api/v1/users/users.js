@@ -5,58 +5,43 @@ const User = require('../../../../models/user');
 const auth = require('../../../../helpers/auth')
 
 // Register or Login
-const authenticate = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  User.getUserByEmail(email, (err, user) => {
-    if (err) {
-      next(err)
-    }
+const authenticate = async (req, res, next) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+  
+    const user = await User.getUserByEmail(email)
     // Create user if user does not exist
     if (!user) {
       let newUser = new User({
         email: email,
         password: password
       });
-    
-      User.addUser(newUser, (err, user) => {
-        if (err) {
-          next(err);
-        } else {
-          auth.authorise(user, req, res, { newUser: true });
-        }
-      });
-
+      newUser = await User.addUser(newUser)
+      auth.authorise(user, req, res, { newUser: true });
     } else {
+      const isMatch = await User.comparePassword(password, user.password)
       // User exists, authenticate
-      User.comparePassword(password, user.password, (err, isMatch) => {
-        if (err) {
-          next(err);
-        } else if (isMatch) {
-          auth.authorise(user, req, res);
-        } else {
-          next(createError(401, "Wrong password"));
-        }
-      });
+      if (isMatch) {
+        auth.authorise(user, req, res);
+      } else {
+        next(createError(401, "Wrong password"));
+      }
     }
-  });
+  } catch (err) {
+    next(err)
+  }
 };
 
-const updateNickName = (req, res, next) => {
-  const nickName = req.body.nickName;
-  User.getUserById(req.decodedToken.id, (err, foundUser) => {
-    if (err) {
-      return next(err)
-    } 
-    foundUser.updateNickName(nickName, (err, saved) => {
-      if (err) {
-        next(err)
-      } else {
-        res.json({ nickName: saved.nickName })
-      }
-    });
-  });
+const updateNickName = async (req, res, next) => {
+  try {
+    const nickName = req.body.nickName;
+    user = await User.getUserById(req.decodedToken.id)
+    user = await user.updateNickName(nickName)
+    res.json({ nickName: user.nickName })
+  } catch (err) {
+    next(err)
+  }
 }
 
 // Profile
