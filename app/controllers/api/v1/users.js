@@ -23,7 +23,7 @@ const authenticate = async (req, res, next) => {
       // User exists, authenticate
       const isMatch = await User.comparePassword(password, user.password)
       if (isMatch) {
-        auth.authorise(user, req, res);
+        auth.authorise(user, req, res, { newUser: false });
       } else {
         throw createError(401, "Wrong password");
       }
