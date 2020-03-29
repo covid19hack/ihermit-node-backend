@@ -3,11 +3,16 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const createError = require('http-errors');
 const router = require('./routes');
+const Sentry = require('@sentry/node');
+
+// Sentry
+Sentry.init({ dsn: process.env.SENTRY_DSN });
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Middleware
+app.use(Sentry.Handlers.requestHandler());
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,6 +25,9 @@ app.use((req, res, next) => {
   console.log('no route found')
   next(createError(404, 'route not found'));
 })
+
+// Sentry
+app.use(Sentry.Handlers.errorHandler());
 
 // Error handler
 app.use((err, req, res, next) => {
