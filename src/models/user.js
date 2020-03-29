@@ -19,6 +19,13 @@ const UserSchema = mongoose.Schema({
     trim: true,
     default: '' 
   },
+  streakStartDate: {
+    type: Date
+  },
+  streakLength: {
+    type: Number,
+    default: 0
+  },
   checkIns: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "CheckIn"
@@ -71,8 +78,6 @@ UserSchema.statics = {
     }
   },
 
-  
-
   // getProfile: async function (userId) {
   //   try {
       
@@ -99,7 +104,12 @@ UserSchema.methods = {
       })
       checkIn = await checkIn.save()
       this.checkIns.push(checkIn);
-      return this.save();
+      if (!this.streakStartDate ) {
+        this.streakStartDate = checkIn.createdAt
+      }
+      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
+      this.streakLength = diffDays;
+      return await this.save()
     } catch (err) {
       throw err
     }
