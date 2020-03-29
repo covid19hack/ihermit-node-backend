@@ -25,9 +25,9 @@ CheckInSchema.statics = {
 }
 
 CheckInSchema.methods = {
-  updateIsHome: async function (isHome) {
+  updateIsHome: async function () {
     try {
-      this.isHome = isHome
+      this.isHome = true
       return await this.save();
     } catch (err) {
       throw err
