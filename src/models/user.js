@@ -18,9 +18,23 @@ const UserSchema = Schema({
   nickName: {
     type: String,
     trim: true,
-    default: '' 
+    default: ''
   },
-  achievements: [String]
+  points: {
+    type: Number,
+    default: 0
+  },
+  achievements: [{
+    achievementid: {type: Schema.Types.ObjectId, ref: 'Achievement'},
+    progress: {
+      type: Number,
+      default: 0
+    },
+    completed: {
+      type: Boolean,
+      default: false
+    },
+  }]
 });
 
 UserSchema.statics = {
@@ -67,7 +81,33 @@ UserSchema.statics = {
     } catch (err) {
       throw err
     }
-  }
+  },
+
+  getProfiles: async function (userId) {
+    try {
+      return await this.findById(userId).populate('achievements')
+    } catch (err) {
+      throw err
+    }
+  },
+
+  upsertAchievement: async function (userId) {
+    try {
+      completed = req.expandedAchievement.progress >= req.expandedAchievement.goal;
+      const achievement = {
+        _id: req.achievement.id,
+        progress: req.progress,
+        completed: completed
+      }
+      user =  await this.findById(userId)
+      user.achievements.push(achievement)
+      if(completed) user.points += req.expandedAchievement.points
+      savedUser = await user.save;
+      return { points: savedUser.points, completed: completed }
+    } catch (err) {
+      throw err
+    }
+  },
 }
 
 UserSchema.methods = {
