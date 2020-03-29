@@ -61,8 +61,19 @@ const createCheckIn = async (req, res, next) => {
   }
 }
 // Profile
-const getProfile = (req, res, next) => {
-  res.json({ user: User.getProfile(req.decodedToken.id) });
+const getProfile = async (req, res, next) => {
+  try {
+    user = await User.getUserById(req.decodedToken.id)
+    console.log(user)
+    res.json({
+      "userId": user._id,
+      "nickName": user.nickName,
+      "achievements": user.achievements,
+      "streakLength": user.streakLength
+    })
+  } catch {
+    res.json({ user: User.getProfile(req.decodedToken.id) });
+  }
 };
 
 module.exports = { authenticate, getProfile, updateNickName, createCheckIn };
