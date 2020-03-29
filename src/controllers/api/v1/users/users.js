@@ -21,12 +21,12 @@ const authenticate = async (req, res, next) => {
       newUser = await User.addUser(newUser)
       auth.authorise(user, req, res, { newUser: true });
     } else {
-      const isMatch = await User.comparePassword(password, user.password)
       // User exists, authenticate
+      const isMatch = await User.comparePassword(password, user.password)
       if (isMatch) {
         auth.authorise(user, req, res);
       } else {
-        next(createError(401, "Wrong password"));
+        throw createError(401, "Wrong password");
       }
     }
   } catch (err) {
@@ -37,6 +37,9 @@ const authenticate = async (req, res, next) => {
 const updateNickName = async (req, res, next) => {
   try {
     const nickName = req.body.nickName;
+    if (nickName === undefined) {
+      throw createError(400, "nickName not provided")
+    }
     user = await User.getUserById(req.decodedToken.id)
     user = await user.updateNickName(nickName)
     res.json({ nickName: user.nickName })
@@ -45,9 +48,23 @@ const updateNickName = async (req, res, next) => {
   }
 }
 
+const createCheckIn = async (req, res, next) => {
+  try {
+    const isHome = req.body.isHome
+    if (isHome === undefined) {
+      throw createError(400, "isHome not provided")
+    }
+    user = await User.getUserById(req.decodedToken.id)
+    await user.addCheckIn(req.body.isHome)
+    res.json({ "streakLength": user.streakLength })
+  } catch (err) {
+    next(err)
+  }
+}
 // Profile
 const getProfile = async (req, res, next) => {
-  res.json({ user: User.getProfile(req.decodedToken.id) });
+  const user = await User.getProfile(req.decodedToken.id)
+  res.json({ user: user });
 };
 
 const upsertAchievement = async (req, res, next) => {

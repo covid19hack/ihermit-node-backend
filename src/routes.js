@@ -19,6 +19,7 @@ usersRouter.post('/authenticate', usersController.authenticate);
 usersRouter.patch('/updateNickName', authHelper.authenticate, usersController.updateNickName);
 usersRouter.get('/profile', authHelper.authenticate, usersController.getProfile);
 usersRouter.post('/upsertAchievement', authHelper.authenticate, usersController.upsertAchievement);
+usersRouter.post('/createCheckIn', authHelper.authenticate, usersController.createCheckIn)
 
 //achievements routes
 achievementsRouter.get('/', achievementsController.getAllAchievements);

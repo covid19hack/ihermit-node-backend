@@ -1,9 +1,8 @@
 const mongoose = require('mongoose').set('debug', true);
-const ObjectId = require('mongodb').ObjectID;
-const Schema = mongoose.Schema;
+const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
-const UserSchema = Schema({
+const UserSchema = mongoose.Schema({
   email: {
     type: String,
     index: true,
@@ -20,12 +19,26 @@ const UserSchema = Schema({
     trim: true,
     default: ''
   },
+  streakStartDate: {
+    type: Date
+  },
+  streakLength: {
+    type: Number,
+    default: 0
+  },
+  checkIns: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CheckIn"
+  }],
   points: {
     type: Number,
     default: 0
   },
   achievements: [{
-    achievementid: {type: Schema.Types.ObjectId, ref: 'Achievement'},
+    achievementid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Achievement'
+    },
     progress: {
       type: Number,
       default: 0
@@ -38,7 +51,7 @@ const UserSchema = Schema({
 });
 
 UserSchema.statics = {
-  getUserById:  async function (id) {
+  getUserById: async function (id) {
     try {
       return await this.findById(id);
     } catch (err) {
@@ -115,6 +128,24 @@ UserSchema.methods = {
     try {
       this.nickName = nickName
       return await this.save();
+    } catch (err) {
+      throw err
+    }
+  },
+
+  addCheckIn: async function (isHome) {
+    try {
+      checkIn = new CheckIn({
+        isHome: isHome
+      })
+      checkIn = await checkIn.save()
+      this.checkIns.push(checkIn);
+      if (!this.streakStartDate || isHome === false) {
+        this.streakStartDate = checkIn.createdAt
+      }
+      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
+      this.streakLength = diffDays;
+      return await this.save()
     } catch (err) {
       throw err
     }
