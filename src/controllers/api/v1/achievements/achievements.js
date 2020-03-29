@@ -1,6 +1,3 @@
-const createError = require('http-errors');
-const commonHelper = require('../../../../helpers/common');
-
 // Models and helpers
 const Achievement = require('../../../../models/achievement');
 
@@ -11,6 +8,5 @@ const getAllAchievements = async (req, res, next) => {
     next (err)
   }
 }
-
 
 module.exports = { getAllAchievements };
