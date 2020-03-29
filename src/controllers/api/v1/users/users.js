@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
         password: password
       });
       newUser = await User.addUser(newUser)
-      auth.authorise(user, req, res, { newUser: true });
+      auth.authorise(newUser, req, res, { newUser: true });
     } else {
       // User exists, authenticate
       const isMatch = await User.comparePassword(password, user.password)
