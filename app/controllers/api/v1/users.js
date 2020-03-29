@@ -2,7 +2,6 @@ const createError = require('http-errors');
 
 // Models and helpers
 const User = require('../../../models/user');
-const Achievement = require('../../../models/achievement');
 const auth = require('../../../helpers/auth');
 
 // Register or Login
@@ -72,15 +71,14 @@ const getProfile = async (req, res, next) => {
   }
 };
 
-const upsertAchievement = async (req, res, next) => {
+const updateAchievement = async (req, res, next) => {
   try {
-    const expandedAchievement = await Achievement.findById(req.body.achievement.id);
-    expandedAchievement.progress = req.body.achievement.progress;
-    response = await User.upsertAchievement(req.decodedToken.id, expandedAchievement)
-    res.json({ ... response,  success: 'true' });
+    changedAchievement = req.body.achievement
+    savedUser = await User.updateAchievement(req.decodedToken.id, changedAchievement)
+    res.json({ ...savedUser,  success: 'true' });
   } catch (err) {
     next(err)
   }
 };
 
-module.exports = { authenticate, getProfile, updateNickName, upsertAchievement, createCheckIn };
+module.exports = { authenticate, getProfile, updateNickName, updateAchievement, createCheckIn };

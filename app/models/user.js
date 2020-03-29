@@ -2,6 +2,9 @@ const mongoose = require('mongoose').set('debug', true);
 const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
+//data import
+defaultAchievements = require('../data/achievements');
+
 const UserSchema = mongoose.Schema({
   email: {
     type: String,
@@ -35,20 +38,10 @@ const UserSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  achievements: [{
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Achievement'
-    },
-    progress: {
-      type: Number,
-      default: 0
-    },
-    completed: {
-      type: Boolean,
-      default: false
-    }
-  }]
+  achievements: {
+    type: Array,
+    default: defaultAchievements
+  }
 });
 
 UserSchema.statics = {
@@ -88,15 +81,6 @@ UserSchema.statics = {
     }
   },
 
-  getAchievements: async function (userId) {
-    try {
-      const user = await this.findById(userId)
-      return await user.achievements
-    } catch (err) {
-      throw err
-    }
-  },
-
   getProfile: async function (userId) {
     try {
       const userProfile = await this.findById(userId).select('-password -checkIns').lean();
@@ -125,27 +109,23 @@ UserSchema.statics = {
     }
   },
 
-  upsertAchievement: async function (userId, expandedAchievement) {
+  updateAchievement: async function (userId, changedAchievement) {
     try {
-      completed = expandedAchievement.progress >= expandedAchievement.goal;
+      changedAchievement.completed = changedAchievement.progress >= changedAchievement.goal;
 
-      user =  await this.findById(userId)
-      existingAchievement = user.achievements.find(achievement => achievement.id = expandedAchievement.id)
-      if(existingAchievement) {
-        existingAchievement.progress = expandedAchievement.progress;
-        existingAchievement.completed = completed;
-      }
-      else {
-        const newAchievement = {
-          _id: expandedAchievement.id,
-          progress: expandedAchievement.progress,
-          completed: completed
-        }
-        user.achievements.push(newAchievement)
-      }
-      if(completed) user.points += expandedAchievement.points
+      user =  await this.findOneAndUpdate(
+        {'_id': userId, 'achievements.id': changedAchievement.id},
+        {
+          $set: {
+            'achievements.$.progress' : changedAchievement.progress,
+            'achievements.$.completed': changedAchievement.completed
+          }
+        },
+        { new: true }
+      )
+      if(changedAchievement.completed) user.points += changedAchievement.points
       savedUser = await user.save();
-      return { points: savedUser.points, completed: completed }
+      return { savedUser }
     } catch (err) {
       throw err
     }
