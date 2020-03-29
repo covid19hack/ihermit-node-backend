@@ -23,7 +23,8 @@ const UserSchema = mongoose.Schema({
     default: ''
   },
   streakStartDate: {
-    type: Date
+    type: Date,
+    default: null,
   },
   streakLength: {
     type: Number,
@@ -86,7 +87,6 @@ UserSchema.statics = {
       const userProfile = await this.findById(userId).select('-password -checkIns').lean();
       const breaches = await this.getBreaches(userId);
       userProfile.breaches = breaches
-      console.log(userProfile, breaches);
       return userProfile
     } catch (err) {
       throw err
