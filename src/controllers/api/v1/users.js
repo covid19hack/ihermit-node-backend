@@ -74,9 +74,9 @@ const getProfile = async (req, res, next) => {
 
 const upsertAchievement = async (req, res, next) => {
   try {
-    let expandedAchievement = await Achievement.findById(req.achievement.id);
-    expandedAchievement.progress = req.achievement.progress;
-    response = await User.upsertAchievement(req.decodedToken.id)
+    const expandedAchievement = await Achievement.findById(req.body.achievement.id);
+    expandedAchievement.progress = req.body.achievement.progress;
+    response = await User.upsertAchievement(req.decodedToken.id, expandedAchievement)
     res.json({ ... response,  success: 'true' });
   } catch (err) {
     next(err)

@@ -27,6 +27,7 @@ const UserSchema = mongoose.Schema({
     default: 0
   },
   checkIns: [{
+    _id: false,
     type: mongoose.Schema.Types.ObjectId,
     ref: "CheckIn"
   }],
@@ -35,7 +36,7 @@ const UserSchema = mongoose.Schema({
     default: 0
   },
   achievements: [{
-    achievementid: {
+    _id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Achievement'
     },
@@ -46,7 +47,7 @@ const UserSchema = mongoose.Schema({
     completed: {
       type: Boolean,
       default: false
-    },
+    }
   }]
 });
 
@@ -98,7 +99,7 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      const userProfile = await this.findById(userId).select('-password -checkIns').populate('achievements');
+      const userProfile = await this.findById(userId).select('-password -checkIns');
       const breaches = await this.getBreaches(userId);
       return {
         userProfile,
@@ -125,23 +126,31 @@ UserSchema.statics = {
     }
   },
 
-  upsertAchievement: async function (userId) {
+  upsertAchievement: async function (userId, expandedAchievement) {
     try {
-      completed = req.expandedAchievement.progress >= req.expandedAchievement.goal;
-      const achievement = {
-        _id: req.achievement.id,
-        progress: req.progress,
-        completed: completed
-      }
+      completed = expandedAchievement.progress >= expandedAchievement.goal;
+
       user =  await this.findById(userId)
-      user.achievements.push(achievement)
-      if(completed) user.points += req.expandedAchievement.points
-      savedUser = await user.save;
+      existingAchievement = user.achievements.find(achievement => achievement.id = expandedAchievement.id)
+      if(existingAchievement) {
+        existingAchievement.progress = expandedAchievement.progress;
+        existingAchievement.completed = completed;
+      }
+      else {
+        const newAchievement = {
+          id: expandedAchievement.id,
+          progress: expandedAchievement.progress,
+          completed: completed
+        }
+        user.achievements.push(newAchievement)
+      }
+      if(completed) user.points += expandedAchievement.points
+      savedUser = await user.save();
       return { points: savedUser.points, completed: completed }
     } catch (err) {
       throw err
     }
-  },
+  }
 }
 
 UserSchema.methods = {
