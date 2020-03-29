@@ -1,9 +1,9 @@
 const createError = require('http-errors');
 
 // Models and helpers
-const User = require('../../../../models/user');
-const Achievement = require('../../../../models/achievement');
-const auth = require('../../../../helpers/auth');
+const User = require('../../../models/user');
+const Achievement = require('../../../models/achievement');
+const auth = require('../../../helpers/auth');
 
 // Register or Login
 const authenticate = async (req, res, next) => {
@@ -65,8 +65,8 @@ const createCheckIn = async (req, res, next) => {
 // Profile
 const getProfile = async (req, res, next) => {
   try {
-    const user = await User.getProfile(req.decodedToken.id)
-    res.json({ user: user });
+    const userProfile = await User.getProfile(req.decodedToken.id)
+    res.json({ userProfile });
   } catch (err) {
     next(err)
   }

@@ -1,6 +1,6 @@
 const express = require('express');
-const usersController = require('./controllers/api/v1/users/users');
-const achievementsController = require('./controllers/api/v1/achievements/achievements');
+const usersController = require('./controllers/api/v1/users');
+const achievementsController = require('./controllers/api/v1/achievements');
 const authHelper = require('./helpers/auth')
 
 const router = express.Router();
