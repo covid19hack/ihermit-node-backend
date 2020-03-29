@@ -98,7 +98,28 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      return await this.findById(userId).select('-password -checkIns').populate('achievements')
+      const userProfile = await this.findById(userId).select('-password -checkIns').populate('achievements');
+      const breaches = await this.getBreaches(userId);
+      return {
+        userProfile,
+        ...breaches
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+
+  getBreaches: async function (userId) {
+    try {
+      const response = await this.findById(userId).select('checkIns').populate('checkIns')
+      const checkIns = response.checkIns
+      const breaches = []
+      for (let i = 0; i < checkIns.length; i++) {
+        if (!checkIns[i].isHome) {
+          breaches.push(checkIns[i])
+        }
+      }
+      return { "breaches": breaches }
     } catch (err) {
       throw err
     }
