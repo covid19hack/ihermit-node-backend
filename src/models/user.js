@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema({
   nickName: {
     type: String,
     trim: true,
-    default: '' 
+    default: ''
   },
   streakStartDate: {
     type: Date
@@ -29,6 +29,24 @@ const UserSchema = mongoose.Schema({
   checkIns: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "CheckIn"
+  }],
+  points: {
+    type: Number,
+    default: 0
+  },
+  achievements: [{
+    achievementid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Achievement'
+    },
+    progress: {
+      type: Number,
+      default: 0
+    },
+    completed: {
+      type: Boolean,
+      default: false
+    },
   }]
 });
 
@@ -78,13 +96,31 @@ UserSchema.statics = {
     }
   },
 
-  // getProfile: async function (userId) {
-  //   try {
-      
-  //   } catch (err) {
+  getProfiles: async function (userId) {
+    try {
+      return await this.findById(userId).select('-password').populate('achievements')
+    } catch (err) {
+      throw err
+    }
+  },
 
-  //   }
-  // }
+  upsertAchievement: async function (userId) {
+    try {
+      completed = req.expandedAchievement.progress >= req.expandedAchievement.goal;
+      const achievement = {
+        _id: req.achievement.id,
+        progress: req.progress,
+        completed: completed
+      }
+      user =  await this.findById(userId)
+      user.achievements.push(achievement)
+      if(completed) user.points += req.expandedAchievement.points
+      savedUser = await user.save;
+      return { points: savedUser.points, completed: completed }
+    } catch (err) {
+      throw err
+    }
+  },
 }
 
 UserSchema.methods = {
