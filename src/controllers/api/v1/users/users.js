@@ -2,14 +2,15 @@ const createError = require('http-errors');
 
 // Models and helpers
 const User = require('../../../../models/user');
-const auth = require('../../../../helpers/auth')
+const Achievement = require('../../../../models/achievement');
+const auth = require('../../../../helpers/auth');
 
 // Register or Login
 const authenticate = async (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-  
+
     const user = await User.getUserByEmail(email)
     // Create user if user does not exist
     if (!user) {
@@ -45,8 +46,19 @@ const updateNickName = async (req, res, next) => {
 }
 
 // Profile
-const getProfile = (req, res, next) => {
+const getProfile = async (req, res, next) => {
   res.json({ user: User.getProfile(req.decodedToken.id) });
 };
 
-module.exports = { authenticate, getProfile, updateNickName };
+const upsertAchievement = async (req, res, next) => {
+  try{
+    let expandedAchievement = await Achievement.findById(req.achievement.id);
+    expandedAchievement.progress = req.achievement.progress;
+    response = await User.upsertAchievement(req.decodedToken.id)
+    res.json({ ... response,  success: 'true' });
+  } catch(err){
+    next(err)
+  }
+};
+
+module.exports = { authenticate, getProfile, updateNickName, upsertAchievement };
