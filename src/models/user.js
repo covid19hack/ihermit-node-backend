@@ -98,7 +98,7 @@ UserSchema.statics = {
 
   getProfile: async function (userId) {
     try {
-      return await this.findById(userId).select('-password, -checkIns').populate('achievements')
+      return await this.findById(userId).select('-password -checkIns').populate('achievements')
     } catch (err) {
       throw err
     }
@@ -145,7 +145,7 @@ UserSchema.methods = {
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
       this.streakLength = diffDays;
-      return await this.save()
+      await this.save()
     } catch (err) {
       throw err
     }
