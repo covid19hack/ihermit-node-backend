@@ -30,7 +30,7 @@ const authorise = (user, req, res, options) => {
   const token = jwt.sign(userData, jwtSecret);
   res.json({
     success: true,
-    auth_token: token,
+    authToken: token,
     user: userData,
     ...options,
   });
