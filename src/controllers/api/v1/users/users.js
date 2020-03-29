@@ -20,12 +20,12 @@ const authenticate = async (req, res, next) => {
       newUser = await User.addUser(newUser)
       auth.authorise(user, req, res, { newUser: true });
     } else {
-      const isMatch = await User.comparePassword(password, user.password)
       // User exists, authenticate
+      const isMatch = await User.comparePassword(password, user.password)
       if (isMatch) {
         auth.authorise(user, req, res);
       } else {
-        next(createError(401, "Wrong password"));
+        throw createError(401, "Wrong password");
       }
     }
   } catch (err) {
@@ -55,7 +55,7 @@ const createCheckIn = async (req, res, next) => {
     }
     user = await User.getUserById(req.decodedToken.id)
     await user.addCheckIn(req.body.isHome)
-    res.json("message: ok")
+    res.json({ "streakLength": user.streakLength })
   } catch (err) {
     next(err)
   }
