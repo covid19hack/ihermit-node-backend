@@ -7,7 +7,7 @@ achievements = [
     goal: 1,
     points: 30,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement1.svg"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ achievements = [
     goal: 1,
     points: 30,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement2.svg"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ achievements = [
     goal: 90,
     points: 75,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement3.svg"
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement4.svg"
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement5.svg"
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement6.svg"
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement7.svg"
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement8.svg"
   },
   {
     id: 9,
@@ -87,7 +87,7 @@ achievements = [
     goal: 1,
     points: 400,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement9.svg"
   },
   {
     id: 10,
@@ -97,7 +97,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement10.svg"
   },
   {
     id: 11,
@@ -107,7 +107,7 @@ achievements = [
     goal: 1,
     points: 800,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement11.svg"
   },
   {
     id: 12,
@@ -117,7 +117,7 @@ achievements = [
     goal: 1,
     points: 1000,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement12.svg"
   },
   {
     id: 13,
@@ -127,7 +127,7 @@ achievements = [
     goal: 1,
     points: 1300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement13.svg"
   },
   {
     id: 14,
@@ -137,7 +137,7 @@ achievements = [
     goal: 1,
     points: 2000,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement14.svg"
   },
   {
     id: 15,
@@ -147,7 +147,7 @@ achievements = [
     goal: 1,
     points: 50,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement15.svg"
   },
   {
     id: 16,
@@ -157,7 +157,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement16.svg"
   },
   {
     id: 17,
@@ -167,7 +167,7 @@ achievements = [
     goal: 20,
     points: 200,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement17.svg"
   },
   {
     id: 18,
@@ -177,7 +177,7 @@ achievements = [
     goal: 1,
     points: 50,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement18.svg"
   },
   {
     id: 19,
@@ -187,7 +187,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement19.svg"
   },
   {
     id: 20,
@@ -197,7 +197,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement20.svg"
   },
   {
     id: 21,
@@ -207,7 +207,7 @@ achievements = [
     goal: 1,
     points: 50,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement21.svg"
   },
   {
     id: 22,
@@ -217,7 +217,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement22.svg"
   },
   {
     id: 23,
@@ -227,7 +227,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement23.svg"
   },
   {
     id: 24,
@@ -237,7 +237,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement24.svg"
   },
   {
     id: 25,
@@ -247,7 +247,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement25.svg"
   },
   {
     id: 26,
@@ -257,7 +257,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement26.svg"
   },
   {
     id: 27,
@@ -267,7 +267,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement27.svg"
   },
   {
     id: 28,
@@ -277,7 +277,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement28.svg"
   },
   {
     id: 29,
@@ -287,7 +287,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement29.svg"
   },
   {
     id: 30,
@@ -297,7 +297,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement30.svg"
   },
   {
     id: 31,
@@ -307,7 +307,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement31.svg"
   },
   {
     id: 32,
@@ -317,7 +317,7 @@ achievements = [
     goal: 1,
     points: 350,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement32.svg"
   },
   {
     id: 33,
@@ -327,7 +327,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement33.svg"
   },
   {
     id: 34,
@@ -337,7 +337,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement34.svg"
   },
   {
     id: 35,
@@ -347,7 +347,7 @@ achievements = [
     goal: 5,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement35.svg"
   },
   {
     id: 36,
@@ -357,7 +357,7 @@ achievements = [
     goal: 10,
     points: 400,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement36.svg"
   },
   {
     id: 36,
@@ -367,7 +367,7 @@ achievements = [
     goal: 20,
     points: 800,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement36.svg"
   },
   {
     id: 34,
@@ -377,7 +377,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement34.svg"
   },
   {
     id: 35,
@@ -387,7 +387,7 @@ achievements = [
     goal: 5,
     points: 250,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement35.svg"
   },
   {
     id: 36,
@@ -397,7 +397,7 @@ achievements = [
     goal: 10,
     points: 400,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement36.svg"
   },
   {
     id: 37,
@@ -407,7 +407,7 @@ achievements = [
     goal: 20,
     points: 800,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement37.svg"
   },
   {
     id: 38,
@@ -417,7 +417,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement38.svg"
   },
   {
     id: 39,
@@ -427,7 +427,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement39.svg"
   },
   {
     id: 40,
@@ -437,7 +437,7 @@ achievements = [
     goal: 20,
     points: 800,
     completed: false,
-    imgUrl: "http://s3.aws.com/covid19hack/dsa123dsa"
+    imgUrl: "http://s3.aws.com/covid19hack/achievement40.svg"
   }
 ]
 
