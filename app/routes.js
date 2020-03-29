@@ -18,8 +18,8 @@ router.use('/api/v1/checkIns', checkInsRouter);
 usersRouter.post('/authenticate', usersController.authenticate);
 usersRouter.patch('/updateNickName', authHelper.authenticate, usersController.updateNickName);
 usersRouter.get('/profile', authHelper.authenticate, usersController.getProfile);
-usersRouter.post('/updateAchievement', authHelper.authenticate, usersController.updateAchievement);
-usersRouter.post('/createCheckIn', authHelper.authenticate, usersController.createCheckIn)
+usersRouter.patch('/achievement', authHelper.authenticate, usersController.updateAchievement);
+usersRouter.post('/checkIn', authHelper.authenticate, usersController.createCheckIn)
 
 // checkin routes
 checkInsRouter.patch('/:id/dismissBreach', authHelper.authenticate, checkInsController.dismissBreach);
