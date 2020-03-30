@@ -24,11 +24,16 @@ const UserSchema = mongoose.Schema({
     default: ''
   },
   streakStartDate: {
-    type: Date
+    type: Date,
+    default: null,
   },
   streakLength: {
     type: Number,
     default: 0
+  },
+  numBreachesDismissed: {
+    type: Number,
+    default: 0,
   },
   checkIns: [{
     _id: false,
@@ -87,7 +92,6 @@ UserSchema.statics = {
       const userProfile = await this.findById(userId).select('-password -checkIns').lean();
       const breaches = await this.getBreaches(userId);
       userProfile.breaches = breaches
-      console.log(userProfile, breaches);
       return userProfile
     } catch (err) {
       throw err
@@ -136,7 +140,7 @@ UserSchema.statics = {
 UserSchema.methods = {
   updateNickName: async function (nickName) {
     try {
-      this.nickName = nickName
+      this.nickName = nickName;
       return await this.save();
     } catch (err) {
       throw err
@@ -168,11 +172,27 @@ UserSchema.methods = {
     }
   },
 
+  incrementBreachDismissed: async function () {
+    try {
+      this.numBreachesDismissed = this.numBreachesDismissed + 1;
+      console.log(this.numBreachesDismissed)
+      await this.save();
+    } catch (err) {
+      throw(err)
+    }
+  },
+
   recalculateStreak: async function () {
     try {
+<<<<<<< HEAD
       const response = await this.constructor.findById(this.id).select('checkIns achievements points').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
+=======
+      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns');
+      const checkIns = response.checkIns;
+      const len = checkIns.length;
+>>>>>>> master
 
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]
