@@ -186,15 +186,9 @@ UserSchema.methods = {
 
   recalculateStreak: async function () {
     try {
-<<<<<<< HEAD
       const response = await this.constructor.findById(this.id).select('checkIns achievements points').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
-=======
-      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns');
-      const checkIns = response.checkIns;
-      const len = checkIns.length;
->>>>>>> master
 
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]
