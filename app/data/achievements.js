@@ -257,8 +257,8 @@ achievements = [
     title: "Something's fishy...",
     description: "5 ‘Good Reasons’ to breaches given.",
     progress: 0,
-    goal: 5,
-    points: 50,
+    goal: 1,
+    points: 100,
     completed: false,
     userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement24.png"

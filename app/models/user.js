@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 //data and helpers
 defaultAchievements = require('../data/achievements');
-quarantineMilestones = require('../helpers/quarantine_milestones');
+awardAchievements = require('../helpers/awardAchievements');
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -170,7 +170,7 @@ UserSchema.methods = {
         this.streakStartDate = checkIn.createdAt
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
-      quarantineMilestones.awardAcvhievementForStreak(this, diffDays);
+      awardAchievements.awardAchievementForStreak(this, diffDays);
       this.streakLength = diffDays;
       await this.save();
     } catch (err) {
@@ -181,7 +181,6 @@ UserSchema.methods = {
   incrementBreachDismissed: async function () {
     try {
       this.numBreachesDismissed = this.numBreachesDismissed + 1;
-      console.log(this.numBreachesDismissed)
       await this.save();
     } catch (err) {
       throw(err)
@@ -208,7 +207,7 @@ UserSchema.methods = {
       const earliestCheckIn = calcEarliestValidCheckIn(checkIns);
       const lastCheckIn = checkIns[len - 1];
       const diffDays = Math.ceil((lastCheckIn.createdAt - earliestCheckIn.createdAt) / (1000 * 60 * 60 * 24))
-      quarantineMilestones.awardAcvhievementForStreak(this, diffDays);
+      awardAchievements.awardAchievementForStreak(this, diffDays);
       this.streakLength = diffDays;
       this.streakStartDate = earliestCheckIn.createdAt;
       await this.save()

@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const awardAchievements = require('../../../helpers/awardAchievements');
 
 // Models and helpers
 const CheckIn = require('../../../models/checkIn');
@@ -16,11 +17,13 @@ const updateBreach = async (req, res, next) => {
     if (checkIn.userId != userId) {
       throw createError(403, "Unauthorized")
     }
-    const user = await User.getUserById(userId);
+    let user = await User.getUserById(userId);
     let userProfile
     if (dismiss) {
       checkIn = await checkIn.updateIsHome();
       await user.incrementBreachDismissed();
+      awardAchievements.awardAchievementForBreaches(user);
+      await user.save();
       userProfile = await user.recalculateStreak()
     } else {
       await checkIn.ignore()

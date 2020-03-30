@@ -44,7 +44,6 @@ CheckInSchema.methods = {
 
   ignore: async function () {
     try {
-      console.log("hello%%%%%%%%%%%%%%%")
       if (this.ignored) {
         throw (createError(400, "this checkIn is already ignored"))
       }
