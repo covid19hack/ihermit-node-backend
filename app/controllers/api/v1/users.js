@@ -73,7 +73,7 @@ const getProfile = async (req, res, next) => {
 
 const updateAchievement = async (req, res, next) => {
   try {
-    changedAchievement = req.body.achievement
+    changedAchievement = req.body
     user = await User.updateAchievement(req.decodedToken.id, changedAchievement)
     res.json({ ...user });
   } catch (err) {

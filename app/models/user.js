@@ -128,20 +128,20 @@ UserSchema.statics = {
   updateAchievement: async function (userId, changedAchievement) {
     try {
       changedAchievement.completed = changedAchievement.progress >= changedAchievement.goal;
-
-      user =  await this.findOneAndUpdate(
-        {'_id': userId, 'achievements.id': changedAchievement.id},
-        {
-          $set: {
-            'achievements.$.progress' : changedAchievement.progress,
-            'achievements.$.completed': changedAchievement.completed
+      user = await this.findById(userId).select('-password -checkIns');
+      for(let i = 0; i < user.achievements.length; i++){
+        if(user.achievements[i].id == changedAchievement.id){
+          user.achievements[i].progress = changedAchievement.progress;
+          if(changedAchievement.completed && user.achievements[i].completed == false){
+            user.achievements[i].completed = true;
+            user.points += changedAchievement.points;
           }
-        },
-        { new: true }
-      ).select('-password -checkIns')
-      if(changedAchievement.completed) user.points += changedAchievement.points
-      savedUser = await user.save();
-      return { savedUser }
+          user.markModified('achievements');
+          break;
+        }
+      }
+      await user.save();
+      return await this.getProfile(userId);
     } catch (err) {
       throw err
     }
@@ -172,7 +172,7 @@ UserSchema.methods = {
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
       quarantineMilestones.awardAcvhievementForStreak(this, diffDays);
       this.streakLength = diffDays;
-      await this.save()
+      await this.save();
     } catch (err) {
       throw err
     }
