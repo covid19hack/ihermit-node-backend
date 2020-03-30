@@ -7,6 +7,7 @@ achievements = [
     goal: 1,
     points: 30,
     completed: true,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement1.png"
   },
   {
@@ -17,6 +18,7 @@ achievements = [
     goal: 1,
     points: 90,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement2.png"
   },
   {
@@ -27,6 +29,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement3.png"
   },
   {
@@ -37,6 +40,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement4.png"
   },
   {
@@ -47,6 +51,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement5.png"
   },
   {
@@ -57,6 +62,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement6.png"
   },
   {
@@ -67,6 +73,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement7.png"
   },
   {
@@ -77,6 +84,7 @@ achievements = [
     goal: 1,
     points: 1300,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement8.png"
   },
   {
@@ -87,6 +95,7 @@ achievements = [
     goal: 1,
     points: 50,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement9.png"
   },
   {
@@ -97,6 +106,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement10.png"
   },
   {
@@ -107,6 +117,7 @@ achievements = [
     goal: 1,
     points: 400,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement11.png"
   },
   {
@@ -117,6 +128,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement12.png"
   },
   {
@@ -127,6 +139,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement13.png"
   },
   {
@@ -137,6 +150,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement14.png"
   },
   {
@@ -147,6 +161,7 @@ achievements = [
     goal: 1,
     points: 500,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement15.png"
   },
   {
@@ -157,6 +172,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement16.png"
   },
   {
@@ -167,6 +183,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement17.png"
   },
   {
@@ -177,6 +194,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement18.png"
   },
   {
@@ -187,6 +205,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement19.png"
   },
   {
@@ -197,6 +216,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement20.png"
   },
   {
@@ -207,6 +227,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement21.png"
   },
   {
@@ -217,6 +238,7 @@ achievements = [
     goal: 10,
     points: 150,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement22.png"
   },
   {
@@ -227,16 +249,18 @@ achievements = [
     goal: 10,
     points: 150,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement23.png"
   },
   {
     id: 24,
     title: "Something's fishy...",
-    description: "5 ‘good reasons’ to breaches given.",
+    description: "5 ‘Good Reasons’ to breaches given.",
     progress: 0,
     goal: 5,
     points: 50,
     completed: false,
+    userCanEdit: false,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement24.png"
   },
   {
@@ -247,6 +271,7 @@ achievements = [
     goal: 1,
     points: 250,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement25.png"
   },
   {
@@ -257,6 +282,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement26.png"
   },
   {
@@ -267,6 +293,7 @@ achievements = [
     goal: 1,
     points: 200,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement27.png"
   },
   {
@@ -277,6 +304,7 @@ achievements = [
     goal: 1,
     points: 150,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement28.png"
   },
   {
@@ -287,6 +315,7 @@ achievements = [
     goal: 1,
     points: 300,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement29.png"
   },
   {
@@ -297,6 +326,7 @@ achievements = [
     goal: 1,
     points: 100,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement30.png"
   },
   {
@@ -307,6 +337,7 @@ achievements = [
     goal: 1,
     points: 400,
     completed: false,
+    userCanEdit: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement31.png"
   },
 ]
