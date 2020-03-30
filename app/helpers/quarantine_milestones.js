@@ -3,11 +3,12 @@ defaultAchievements = require('../data/achievements');
 
 const quarantineMilestones = {
   //days: achievemtId
-  '1': 3,
-  '3': 4,
-  '6': 5,
-  '28': 7,
-  '69': 8,
+  '1': 2,
+  '2': 3,
+  '4': 4,
+  '7': 5,
+  '29': 7,
+  '70': 8,
 }
 
 const awardAcvhievementForStreak = (User, streak) => {

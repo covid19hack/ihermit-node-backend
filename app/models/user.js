@@ -26,7 +26,7 @@ const UserSchema = mongoose.Schema({
   },
   streakStartDate: {
     type: Date,
-    default: null,
+    default: Date.now,
   },
   streakLength: {
     type: Number,
