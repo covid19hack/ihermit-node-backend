@@ -11,7 +11,7 @@ const quarantineMilestones = {
 }
 
 const getAchievementForStreak = (streak) => {
-  milestone = Object.keys(quarantineMilestones).find( key => key == streak)
+  milestone = Object.keys(quarantineMilestones).find(key => key == streak)
   if (!milestone) return null;
   defaultAchievements.filter(achievement =>  achievement.id == quarantineMilestones[milestone]);
 }

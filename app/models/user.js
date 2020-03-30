@@ -162,10 +162,8 @@ UserSchema.methods = {
       const unlockedDefaultAchievement = quarantineMilestones.getAchievementForStreak(diffDays);
       const achievementIndex = this.achievements.indexOf(unlockedDefaultAchievement)
       if (achievementIndex > -1) {
-        if (!this.achievement[achievementIndex].completed) {
-          this.achievements[achievementIndex].completed = true;
-          this.points +=  this.achievements[achievementIndex].points
-        }
+        this.achievements[achievementIndex].completed = true;
+        this.points +=  this.achievements[achievementIndex].points
       }
       this.streakLength = diffDays;
       await this.save()
@@ -207,10 +205,8 @@ UserSchema.methods = {
       const unlockedDefaultAchievement = quarantineMilestones.getAchievementForStreak(diffDays);
       const achievementIndex = this.achievements.indexOf(unlockedDefaultAchievement)
       if (achievementIndex > -1) {
-        if (!this.achievement[achievementIndex].completed) {
-          this.achievements[achievementIndex].completed = true;
-          this.points +=  this.achievements[achievementIndex].points
-        }
+        this.achievements[achievementIndex].completed = true;
+        this.points += this.achievements[achievementIndex].points
       }
       this.streakLength = diffDays;
       this.streakStartDate = earliestCheckIn.createdAt;
