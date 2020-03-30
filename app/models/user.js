@@ -173,7 +173,7 @@ UserSchema.methods = {
           const breachAchievement = this.achievements[8]
           if (breachAchievement.completed == false) {
             breachAchievement.completed = true;
-            breachAchievement.progress = true;
+            breachAchievement.progress = 1;
             this.points += breachAchievement.points;
             this.markModified('achievements');
           }
