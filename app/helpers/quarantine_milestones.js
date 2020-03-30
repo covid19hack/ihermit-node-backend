@@ -13,15 +13,16 @@ const quarantineMilestones = {
 const awardAcvhievementForStreak = (User, streak) => {
   milestone = Object.keys(quarantineMilestones).find(key => key == streak)
   if (!milestone) return null;
-  defaultAchievements.filter(achievement =>  achievement.id == quarantineMilestones[milestone]);
-  const achievementsArr = Array.from(...User.achievements).map(a => a.toJSON())
-  const achievementIndex = achievementsArr.indexOf(unlockedDefaultAchievement)
-  if(achievementIndex > -1){
-    User.achievements[achievementIndex].progress = 1;
-    User.achievements[achievementIndex].completed = true;
-    User.points +=  User.achievements[achievementIndex].points
+  const achievementId = quarantineMilestones[milestone];
+  for(let i = 0; i < User.achievements.length; i++){
+    if(User.achievements[i].id == achievementId && User.achievements[i].completed == false){
+      User.achievements[i].progress = 1;
+      User.achievements[i].completed = true;
+      User.points +=  User.achievements[i].points;
+      User.markModified('achievements');
+      break;
+    }
   }
-  return User;
 }
 
 module.exports = { awardAcvhievementForStreak }
