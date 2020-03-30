@@ -92,6 +92,7 @@ UserSchema.statics = {
       const userProfile = await this.findById(userId).select('-password -checkIns').lean();
       const breaches = await this.getBreaches(userId);
 
+      // its hacky I know, it's a hackathon afterall
       const calcDurationPoints = (userId) => {
         const userCreatedAt = new Date(ObjectId(userId).getTimestamp());
         const today = new Date()
