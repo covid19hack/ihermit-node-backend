@@ -3,8 +3,9 @@ const ObjectId = require('mongodb').ObjectId
 const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
-//data import
+//data and helpers
 defaultAchievements = require('../data/achievements');
+quarantineMilestones = require('../helpers/quarantine_milestones');
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -42,7 +43,7 @@ const UserSchema = mongoose.Schema({
   }],
   points: {
     type: Number,
-    default: 0
+    default: 30
   },
   achievements: {
     type: Array,
@@ -168,7 +169,8 @@ UserSchema.methods = {
       if (!this.streakStartDate || isHome === false) {
         this.streakStartDate = checkIn.createdAt
       }
-      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
+      quarantineMilestones.awardAcvhievementForStreak(this, diffDays);
       this.streakLength = diffDays;
       await this.save()
     } catch (err) {
@@ -188,9 +190,9 @@ UserSchema.methods = {
 
   recalculateStreak: async function () {
     try {
-      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns');
-      const checkIns = response.checkIns;
-      const len = checkIns.length;
+      const response = await this.constructor.findById(this.id).select('checkIns achievements points').populate('checkIns')
+      const checkIns = response.checkIns
+      const len = checkIns.length
 
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]
@@ -206,6 +208,7 @@ UserSchema.methods = {
       const earliestCheckIn = calcEarliestValidCheckIn(checkIns);
       const lastCheckIn = checkIns[len - 1];
       const diffDays = Math.ceil((lastCheckIn.createdAt - earliestCheckIn.createdAt) / (1000 * 60 * 60 * 24))
+      quarantineMilestones.awardAcvhievementForStreak(this, diffDays);
       this.streakLength = diffDays;
       this.streakStartDate = earliestCheckIn.createdAt;
       await this.save()
