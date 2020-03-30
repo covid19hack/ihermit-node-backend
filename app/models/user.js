@@ -1,4 +1,5 @@
 const mongoose = require('mongoose').set('debug', true);
+const ObjectId = require('mongodb').ObjectId
 const CheckIn = require('./checkIn');
 const bcrypt = require('bcryptjs');
 
@@ -90,6 +91,15 @@ UserSchema.statics = {
     try {
       const userProfile = await this.findById(userId).select('-password -checkIns').lean();
       const breaches = await this.getBreaches(userId);
+
+      const calcDurationPoints = (userId) => {
+        const userCreatedAt = new Date(ObjectId(userId).getTimestamp());
+        const today = new Date()
+        const daysDiff = Math.ceil((today - userCreatedAt) / (1000 * 60 * 60 * 24))
+        return daysDiff * 100;
+      }
+
+      userProfile.points = userProfile.points + calcDurationPoints(userId)
       userProfile.breaches = breaches
       return userProfile
     } catch (err) {
