@@ -42,7 +42,7 @@ const UserSchema = mongoose.Schema({
   }],
   points: {
     type: Number,
-    default: 0
+    default: 30
   },
   achievements: {
     type: Array,

@@ -3,10 +3,10 @@ achievements = [
     id: 1,
     title: "Participation Trophy",
     description: "You created your account",
-    progress: 0,
+    progress: 1,
     goal: 1,
     points: 30,
-    completed: false,
+    completed: true,
     imgUrl: "https://elasticbeanstalk-us-east-2-276997506448.s3.us-east-2.amazonaws.com/achievement_pics/achievement1.png"
   },
   {
