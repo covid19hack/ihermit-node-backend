@@ -45,7 +45,7 @@ achievements = [
   },
   {
     id: 5,
-    title: "",
+    title: "You're getting too good at this",
     description: "Completed a 6 day streak of staying at home.",
     progress: 0,
     goal: 1,
@@ -56,7 +56,7 @@ achievements = [
   },
   {
     id: 6,
-    title: "",
+    title: "What year is it?",
     description: "Completed a 10 day streak of staying at home.",
     progress: 0,
     goal: 1,
@@ -67,7 +67,7 @@ achievements = [
   },
   {
     id: 7,
-    title: "",
+    title: "28 days later",
     description: "Completed a 28 day streak of staying at home.",
     progress: 0,
     goal: 1,
