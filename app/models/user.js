@@ -170,7 +170,7 @@ UserSchema.methods = {
 
   recalculateStreak: async function () {
     try {
-      const response = await this.constructor.findById(this.id).select('checkIns points').populate('checkIns')
+      const response = await this.constructor.findById(this.id).select('checkIns achievements points').populate('checkIns')
       const checkIns = response.checkIns
       const len = checkIns.length
 
