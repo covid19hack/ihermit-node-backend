@@ -10,10 +10,18 @@ const quarantineMilestones = {
   '69': 8,
 }
 
-const getAchievementForStreak = (streak) => {
+const awardAcvhievementForStreak = (User, streak) => {
   milestone = Object.keys(quarantineMilestones).find(key => key == streak)
   if (!milestone) return null;
   defaultAchievements.filter(achievement =>  achievement.id == quarantineMilestones[milestone]);
+  const achievementsArr = Array.from(...User.achievements).map(a => a.toJSON())
+  const achievementIndex = achievementsArr.indexOf(unlockedDefaultAchievement)
+  if(achievementIndex > -1){
+    User.achievements[achievementIndex].progress = 1;
+    User.achievements[achievementIndex].completed = true;
+    User.points +=  User.achievements[achievementIndex].points
+  }
+  return User;
 }
 
-module.exports = { getAchievementForStreak }
+module.exports = { awardAcvhievementForStreak }
