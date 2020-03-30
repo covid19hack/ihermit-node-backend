@@ -22,6 +22,6 @@ usersRouter.patch('/achievement', authHelper.authenticate, usersController.updat
 usersRouter.post('/checkIn', authHelper.authenticate, usersController.createCheckIn)
 
 // checkin routes
-checkInsRouter.patch('/:id/dismissBreach', authHelper.authenticate, checkInsController.dismissBreach);
+checkInsRouter.patch('/:id', authHelper.authenticate, checkInsController.updateBreach);
 
 module.exports = router

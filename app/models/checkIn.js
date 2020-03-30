@@ -9,6 +9,10 @@ const CheckInSchema = mongoose.Schema({
   isHome: {
     type: Boolean,
     required: true
+  },
+  ignored: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true 
@@ -28,10 +32,23 @@ CheckInSchema.statics = {
 CheckInSchema.methods = {
   updateIsHome: async function () {
     try {
-      if (this.isHome == true) {
+      if (this.isHome) {
         throw (createError(400, "this checkIn is already dismissed"))
       }
       this.isHome = true
+      return await this.save();
+    } catch (err) {
+      throw err
+    }
+  },
+
+  ignore: async function () {
+    try {
+      console.log("hello%%%%%%%%%%%%%%%")
+      if (this.ignored) {
+        throw (createError(400, "this checkIn is already ignored"))
+      }
+      this.ignored = true
       return await this.save();
     } catch (err) {
       throw err

@@ -115,7 +115,7 @@ UserSchema.statics = {
       const checkIns = response.checkIns
       const breaches = []
       for (let i = 0; i < checkIns.length; i++) {
-        if (!checkIns[i].isHome) {
+        if (!checkIns[i].isHome && !checkIns[i].ignored) {
           breaches.push(checkIns[i])
         }
       }
