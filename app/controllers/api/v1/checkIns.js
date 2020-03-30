@@ -14,6 +14,7 @@ const dismissBreach = async (req, res, next) => {
     }
     checkIn = await checkIn.updateIsHome();
     const user = await User.getUserById(userId);
+    await user.incrementBreachDismissed();
     userProfile = await user.recalculateStreak();
     res.json(userProfile);
   } catch (err) {

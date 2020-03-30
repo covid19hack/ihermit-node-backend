@@ -30,6 +30,10 @@ const UserSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
+  numBreachesDismissed: {
+    type: Number,
+    default: 0,
+  },
   checkIns: [{
     _id: false,
     type: mongoose.Schema.Types.ObjectId,
@@ -135,7 +139,7 @@ UserSchema.statics = {
 UserSchema.methods = {
   updateNickName: async function (nickName) {
     try {
-      this.nickName = nickName
+      this.nickName = nickName;
       return await this.save();
     } catch (err) {
       throw err
@@ -153,7 +157,7 @@ UserSchema.methods = {
       if (!this.streakStartDate || isHome === false) {
         this.streakStartDate = checkIn.createdAt
       }
-      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
+      const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24));
       this.streakLength = diffDays;
       await this.save()
     } catch (err) {
@@ -161,11 +165,21 @@ UserSchema.methods = {
     }
   },
 
+  incrementBreachDismissed: async function () {
+    try {
+      this.numBreachesDismissed = this.numBreachesDismissed + 1;
+      console.log(this.numBreachesDismissed)
+      await this.save();
+    } catch (err) {
+      throw(err)
+    }
+  },
+
   recalculateStreak: async function () {
     try {
-      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns')
-      const checkIns = response.checkIns
-      const len = checkIns.length
+      const response = await this.constructor.findById(this.id).select('checkIns').populate('checkIns');
+      const checkIns = response.checkIns;
+      const len = checkIns.length;
 
       const calcEarliestValidCheckIn = (ckns) => {
         let earliestValidCheckIn = ckns[len - 1]

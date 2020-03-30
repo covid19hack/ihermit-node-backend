@@ -1,4 +1,5 @@
 const mongoose = require('mongoose').set('debug', true);
+const createError = require('http-errors');
 
 const CheckInSchema = mongoose.Schema({
   userId: {
@@ -27,6 +28,9 @@ CheckInSchema.statics = {
 CheckInSchema.methods = {
   updateIsHome: async function () {
     try {
+      if (this.isHome == true) {
+        throw (createError(400, "this checkIn is already dismissed"))
+      }
       this.isHome = true
       return await this.save();
     } catch (err) {
