@@ -27,7 +27,7 @@ const updateBreach = async (req, res, next) => {
       userProfile = await user.recalculateStreak()
     } else {
       await checkIn.ignore()
-      userProfile = await User.getProfile();
+      userProfile = await User.getProfile(user.id);
     }
     res.json(userProfile);
   } catch (err) {
