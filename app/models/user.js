@@ -168,6 +168,16 @@ UserSchema.methods = {
       this.checkIns.push(checkIn);
       if (!this.streakStartDate || isHome === false) {
         this.streakStartDate = checkIn.createdAt
+        if (isHome == false) {
+          // 8 is id: 9 broke streak
+          const breachAchievement = this.achievements[8]
+          if (breachAchievement.completed == false) {
+            breachAchievement.completed = true;
+            breachAchievement.progress = true;
+            this.points += breachAchievement.points;
+            this.markModified('achievements');
+          }
+        }
       }
       const diffDays = Math.ceil((checkIn.createdAt - this.streakStartDate) / (1000 * 60 * 60 * 24))
       awardAchievements.awardAchievementForStreak(this, diffDays);
