@@ -98,7 +98,7 @@ UserSchema.statics = {
         const userCreatedAt = new Date(ObjectId(userId).getTimestamp());
         const today = new Date()
         const daysDiff = Math.ceil((today - userCreatedAt) / (1000 * 60 * 60 * 24))
-        return daysDiff * 100;
+        return Math.max(0, (daysDiff - 1) * 100);
       }
 
       userProfile.points = userProfile.points + calcDurationPoints(userId)
