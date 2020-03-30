@@ -162,6 +162,7 @@ UserSchema.methods = {
       const unlockedDefaultAchievement = quarantineMilestones.getAchievementForStreak(diffDays);
       const achievementIndex = this.achievements.indexOf(unlockedDefaultAchievement)
       if (achievementIndex > -1) {
+        this.achievements[achievementIndex].progress = 1;
         this.achievements[achievementIndex].completed = true;
         this.points +=  this.achievements[achievementIndex].points
       }
@@ -205,6 +206,7 @@ UserSchema.methods = {
       const unlockedDefaultAchievement = quarantineMilestones.getAchievementForStreak(diffDays);
       const achievementIndex = this.achievements.indexOf(unlockedDefaultAchievement)
       if (achievementIndex > -1) {
+        this.achievements[achievementIndex].progress = 1;
         this.achievements[achievementIndex].completed = true;
         this.points += this.achievements[achievementIndex].points
       }
